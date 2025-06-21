@@ -1,0 +1,25 @@
+---
+description:
+globs:
+alwaysApply: true
+---
+# Make command and Makefile
+
+- Always prefer to use make commands when running terminal commands, or when implementing bash scripts/CI CD scripts. The idea is that the Makefile will be a source of high-quality set of actions we might want to do.
+
+# Lint And Test On Changes
+
+The instruction is to always run `make lint` and `make lt` to make sure no linting or test errors, and
+
+# Documentation
+
+After making some changes, always look at the docs around it and see if they need an update or not. Also very important to keep the `Makefile` file and the `README.md` always up to date, also check on them often and especially after changes. Another important files are `docs/STRUCTURE.md` and `docs/PROJECT_PLAN.md` - keep them update after changes.
+
+## Feature And Development Tracking
+
+In features documentation/plan files, any steps file, always track what we have done and what's not. Use the ✅ emoji as it's a great way to sign on specific items that were done. Also use emojis in scripts for verbosity.
+
+## Stack
+
+- GoLang 1.23.5
+- GitHub Actions
