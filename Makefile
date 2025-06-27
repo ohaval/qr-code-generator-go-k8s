@@ -19,3 +19,8 @@ lt: fmt vet lint
 install-tools:
 	go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
 	go install honnef.co/go/tools/cmd/staticcheck@latest
+
+# Run tests
+test:
+	go test -v ./...
+

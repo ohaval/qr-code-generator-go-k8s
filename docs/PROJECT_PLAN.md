@@ -4,8 +4,8 @@
 
 ### Phase 1: Core API Development
 - [x] Set up Go project structure with proper modules
-- [ ] Add QR code generation library dependency
-- [ ] Implement core QR code generation function
+- [x] Add QR code generation library dependency
+- [x] Implement core QR code generation function
 - [ ] Set up Gin HTTP server with basic configuration
 - [ ] Implement `GET /health` endpoint
 - [ ] Implement `POST /api/v1/qr/generate` endpoint
@@ -27,11 +27,11 @@
 - [ ] Test complete deployment flow
 
 ## MVP Goals
-- [ ] Basic text/URL QR code generation
+- [x] Basic text/URL QR code generation
 - [ ] REST API with core endpoints
 - [ ] Docker containerization
 - [ ] Kubernetes deployment manifests
-- [ ] Basic error handling and validation
+- [x] Basic error handling and validation
 
 ## Tech Stack
 - **Backend**: Go (Golang) with Gin web framework
