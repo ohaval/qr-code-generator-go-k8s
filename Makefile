@@ -1,4 +1,4 @@
-.PHONY: help fmt vet lt install-test-tools test run docker-build docker-run docker-stop docker-clean docker-dev k8s-setup k8s-deploy k8s-delete k8s-status k8s-logs k8s-clean
+.PHONY: help fmt vet lt install-test-tools test run docker-build docker-run docker-stop docker-clean docker-dev k8s-setup k8s-status k8s-logs k8s-clean
 
 # Show available commands
 help:
@@ -17,8 +17,6 @@ help:
 	@echo "    docker-dev    - Build and run container (dev workflow)"
 	@echo "  Kubernetes:"
 	@echo "    k8s-setup     - Complete local Kubernetes setup with kind cluster"
-	@echo "    k8s-deploy    - Deploy to Kubernetes cluster"
-	@echo "    k8s-delete    - Delete from Kubernetes cluster"
 	@echo "    k8s-status    - Show deployment status"
 	@echo "    k8s-logs      - Show application logs"
 	@echo "    k8s-clean     - Remove kind cluster completely"
@@ -79,12 +77,6 @@ docker-dev: docker-stop docker-build docker-run
 k8s-setup:
 	# Complete setup of local Kubernetes environment with kind cluster
 	./scripts/setup-k8s-local.sh
-
-k8s-deploy:
-	kubectl apply -f k8s/
-
-k8s-delete:
-	kubectl delete -f k8s/
 
 k8s-status:
 	kubectl get pods,services,deployments -l app=qr-generator
