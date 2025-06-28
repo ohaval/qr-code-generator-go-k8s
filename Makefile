@@ -1,4 +1,4 @@
-.PHONY: help fmt vet lt install-test-tools test run docker-build docker-run docker-stop docker-clean docker-dev k8s-deploy k8s-delete k8s-status k8s-logs
+.PHONY: help fmt vet lt install-test-tools test run docker-build docker-run docker-stop docker-clean docker-dev k8s-setup k8s-deploy k8s-delete k8s-status k8s-logs k8s-clean
 
 # Show available commands
 help:
@@ -16,10 +16,12 @@ help:
 	@echo "    docker-clean  - Clean up images and containers"
 	@echo "    docker-dev    - Build and run container (dev workflow)"
 	@echo "  Kubernetes:"
+	@echo "    k8s-setup     - Complete local Kubernetes setup with kind cluster"
 	@echo "    k8s-deploy    - Deploy to Kubernetes cluster"
 	@echo "    k8s-delete    - Delete from Kubernetes cluster"
 	@echo "    k8s-status    - Show deployment status"
 	@echo "    k8s-logs      - Show application logs"
+	@echo "    k8s-clean     - Remove kind cluster completely"
 
 # Format Go source code according to Go's standard formatting rules
 fmt:
@@ -74,6 +76,10 @@ docker-clean: docker-stop
 docker-dev: docker-stop docker-build docker-run
 
 # Kubernetes commands
+k8s-setup:
+	# Complete setup of local Kubernetes environment with kind cluster
+	./scripts/setup-k8s-local.sh
+
 k8s-deploy:
 	kubectl apply -f k8s/
 
@@ -85,3 +91,7 @@ k8s-status:
 
 k8s-logs:
 	kubectl logs -l app=qr-generator --tail=50 -f
+
+k8s-clean:
+	# Remove kind cluster completely
+	kind delete cluster --name qr-generator
