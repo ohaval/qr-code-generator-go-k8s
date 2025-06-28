@@ -4,7 +4,7 @@ on:
   push:
 
 jobs:
-  test:
+  unit-tests:
     runs-on: ubuntu-latest
 
     steps:
@@ -20,3 +20,63 @@ jobs:
 
     - name: Run tests
       run: make test
+
+  integration-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Go
+      uses: actions/setup-go@v5
+      with:
+        go-version: '1.23.5'
+
+    - name: Install test tools
+      run: make install-test-tools
+
+    - name: Install kind
+      run: |
+        # Download and install kind
+        curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.29.0/kind-linux-amd64
+        chmod +x ./kind
+        sudo mv ./kind /usr/local/bin/kind
+
+    - name: Install kubectl
+      run: |
+        # Install kubectl
+        curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+        chmod +x kubectl
+        sudo mv kubectl /usr/local/bin/kubectl
+
+    - name: Set up Kubernetes cluster
+      run: |
+        # Set up local Kubernetes environment
+        make k8s-setup
+
+    - name: Set up port forwarding
+      run: |
+        # Start port forwarding in background
+        kubectl port-forward service/qr-generator-service 8080:80 &
+
+        # Wait for port forwarding to be ready
+        sleep 10
+
+        # Verify port forwarding is working
+        for i in {1..30}; do
+          if curl -s http://localhost:8080/health > /dev/null; then
+            echo "✅ Port forwarding is ready"
+            break
+          fi
+          echo "⏳ Waiting for port forwarding... ($i/30)"
+          sleep 2
+        done
+
+    - name: Run integration tests
+      run: make e2e-test
+
+    - name: Clean up
+      if: always()
+      run: |
+        # Clean up the kind cluster
+        make k8s-clean || true
