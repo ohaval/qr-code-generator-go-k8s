@@ -18,6 +18,11 @@ func TestQRCodeGenerator_GenerateQRCodeBytes(t *testing.T) {
 			wantErr: false,
 		},
 		{
+			name:    "valid text",
+			input:   "Hello World",
+			wantErr: false,
+		},
+		{
 			name:    "empty string",
 			input:   "",
 			wantErr: true,

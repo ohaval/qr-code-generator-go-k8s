@@ -6,14 +6,14 @@
 - [x] Set up Go project structure with proper modules
 - [x] Add QR code generation library dependency
 - [x] Implement core QR code generation function
-- [ ] Set up Gin HTTP server with basic configuration
-- [ ] Implement `GET /health` endpoint
-- [ ] Implement `POST /api/v1/qr/generate` endpoint
-- [ ] Add request validation (URL format, required fields)
-- [ ] Add proper error handling and HTTP status codes
-- [ ] Add basic logging
-- [ ] Write integration tests for API endpoints
-- [ ] Test API manually with curl/Postman
+- [x] Set up HTTP server with basic configuration (using net/http)
+- [x] Implement `GET /health` endpoint
+- [x] Implement `POST /api/v1/qr/generate` endpoint
+- [x] Add simple request validation
+- [x] Add proper error handling and HTTP status codes
+- [x] Add basic logging
+- [x] Write unit tests for QR generation
+- [x] Test API manually with curl/Postman
 
 ### Phase 2: Containerization & Deployment
 - [ ] Create Dockerfile with multi-stage build
@@ -34,7 +34,7 @@
 - [x] Basic error handling and validation
 
 ## Tech Stack
-- **Backend**: Go (Golang) with Gin web framework
+- **Backend**: Go (Golang) with standard net/http package
 - **Infrastructure**: Kubernetes (kind for local, EKS for production)
 - **Cloud Provider**: AWS (EKS, ECR, ALB)
 - **API**: RESTful API with JSON responses (stateless)
