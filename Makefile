@@ -1,4 +1,4 @@
-.PHONY: help fmt vet lt install-test-tools test run docker-build docker-run docker-stop docker-clean docker-dev k8s-setup k8s-status k8s-logs k8s-clean e2e-test eks-setup eks-deploy e2e-test-eks
+.PHONY: help fmt vet lt install-test-tools test run docker-build docker-run docker-stop docker-clean docker-dev k8s-setup k8s-status k8s-logs k8s-clean e2e-test eks-setup eks-deploy eks-destroy e2e-test-eks
 
 # Show available commands
 help:
@@ -6,9 +6,7 @@ help:
 	@echo "  Development:"
 	@echo "    run           - Run the application locally"
 	@echo "    test          - Run tests"
-	@echo "    fmt           - Format Go code"
-	@echo "    vet           - Run go vet"
-	@echo "    lt            - Run fmt and vet"
+	@echo "    lt            - Run go fmt and go vet"
 	@echo "  Docker:"
 	@echo "    docker-build  - Build Docker image"
 	@echo "    docker-run    - Run Docker container"
@@ -23,20 +21,15 @@ help:
 	@echo "  EKS (Production):"
 	@echo "    eks-setup     - Set up EKS cluster, ECR, and AWS Load Balancer Controller"
 	@echo "    eks-deploy    - Build, push to ECR, and deploy application to EKS"
+	@echo "    eks-destroy   - Completely destroy EKS cluster and all related resources"
 	@echo "  Testing:"
 	@echo "    e2e-test      - Run end-to-end tests (requires service running with port forwarding)"
 	@echo "    e2e-test-eks  - Run end-to-end tests against EKS (auto-detects ALB URL, requires auth)"
 
-# Format Go source code according to Go's standard formatting rules
-fmt:
-	go fmt ./...
-
-# Analyze Go code for suspicious constructs and potential bugs
-vet:
-	go vet ./...
-
 # Combined linting target
-lt: fmt vet
+lt:
+	go fmt ./...
+	go vet ./...
 
 # Install linting tools
 install-test-tools:
@@ -135,3 +128,7 @@ eks-setup:
 eks-deploy:
 	# Build, push to ECR, and deploy application to EKS cluster
 	./scripts/deploy-app.sh
+
+eks-destroy:
+	# Completely destroy EKS cluster and all related resources
+	./scripts/teardown-eks.sh

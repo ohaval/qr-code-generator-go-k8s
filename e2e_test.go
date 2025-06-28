@@ -276,7 +276,6 @@ func TestE2EBadMethods(t *testing.T) {
 		{"DELETE on generate endpoint", "/api/v1/qr/generate", "DELETE"},
 		{"PATCH on generate endpoint", "/api/v1/qr/generate", "PATCH"},
 		{"HEAD on generate endpoint", "/api/v1/qr/generate", "HEAD"},
-
 	}
 
 	for _, tc := range testCases {
@@ -427,7 +426,7 @@ func TestE2ELargeInput(t *testing.T) {
 		{"Very large text (2000 chars)", 2000},
 	}
 
-		for _, tc := range testCases {
+	for _, tc := range testCases {
 		t.Run(tc.name, func(t *testing.T) {
 			text := strings.Repeat("A", tc.size)
 			requestURL := fmt.Sprintf("%s/api/v1/qr/generate?text=%s", baseURL, url.QueryEscape(text))
