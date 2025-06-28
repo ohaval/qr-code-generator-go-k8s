@@ -7,13 +7,15 @@ qr-code-generator-go-k8s/
 ├── go.sum                       # Dependency lock file
 ├── main.go                      # Main application with QR code generation functionality
 ├── main_test.go                 # Unit tests for QR code generation
-├── Makefile                     # Build, format, lint, and test targets
+├── Dockerfile                   # Multi-stage Docker build configuration
+├── Makefile                     # Build, format, lint, test, and Docker targets
 └── docs/                        # Project documentation
     ├── PROJECT_PLAN.md          # Combined project plan, architecture, and development phases
     └── STRUCTURE.md             # Current project structure (this file)
 ```
 
 ## Current Endpoints
-- `GET /` - API info message
-- `GET /test-qr?text=<text>` - Generate QR code for testing (returns PNG image)
+- `GET /` - API info message ("QR Code Generator API")
+- `GET /health` - Health check endpoint (returns JSON status)
+- `POST /api/v1/qr/generate?text=<text>` - Generate QR code (returns PNG image)
 - All other paths return 404 Not Found

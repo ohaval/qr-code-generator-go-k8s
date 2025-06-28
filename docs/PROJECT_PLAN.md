@@ -17,7 +17,7 @@
 
 ### Phase 2: Containerization & Deployment
 - [x] Create Dockerfile with multi-stage build
-- [ ] Build and test Docker image locally
+- [x] Build and test Docker image locally
 - [ ] Create Kubernetes deployment manifest
 - [ ] Create Kubernetes service manifest
 - [ ] Set up kind cluster locally
@@ -28,8 +28,8 @@
 
 ## MVP Goals
 - [x] Basic text/URL QR code generation
-- [ ] REST API with core endpoints
-- [ ] Docker containerization
+- [x] REST API with core endpoints
+- [x] Docker containerization
 - [ ] Kubernetes deployment manifests
 - [x] Basic error handling and validation
 
