@@ -84,7 +84,7 @@ echo -e "${GREEN}✅ Image loaded into cluster${NC}"
 
 # Deploy Kubernetes resources
 echo -e "${BLUE}🚀 Deploying Kubernetes resources...${NC}"
-kubectl apply -f k8s/ >/dev/null
+kubectl apply -f k8s/kind/ >/dev/null
 echo -e "${GREEN}✅ Kubernetes manifests applied${NC}"
 
 # Wait for deployment to be ready
