@@ -40,7 +40,8 @@ install-test-tools:
 
 # Run tests with colorful output (default)
 test:
-	gotestsum --format testname ./...
+	@echo "🧪 Running unit tests..."
+	gotestsum --format testname -- -tags="!e2e" ./...
 
 # Run the application
 run:
@@ -96,4 +97,4 @@ e2e-test:
 	@echo "🧪 Running E2E tests against http://localhost:8080..."
 	@echo "⚠️  Make sure the service is running with port forwarding active:"
 	@echo "   kubectl port-forward service/qr-generator-service 8080:80"
-	go test -v -run TestE2E
+	gotestsum --format testname -- -tags="e2e" ./...
