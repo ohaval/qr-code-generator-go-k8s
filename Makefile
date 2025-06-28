@@ -1,4 +1,4 @@
-.PHONY: fmt vet lint test build clean
+.PHONY: fmt vet lint lt install-tools test
 
 # Format code
 fmt:
@@ -19,8 +19,8 @@ lt: fmt vet lint
 install-tools:
 	go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
 	go install honnef.co/go/tools/cmd/staticcheck@latest
+	go install gotest.tools/gotestsum@latest
 
-# Run tests
+# Run tests with colorful output (default)
 test:
-	go test -v ./...
-
+	gotestsum --format testname ./...
