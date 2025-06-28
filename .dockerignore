@@ -1,0 +1,29 @@
+# Git
+.git
+.gitignore
+
+# Documentation
+README.md
+docs/
+
+# Development files
+.env
+.env.local
+*.log
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Test coverage files
+coverage.out
+
+# Build artifacts (if any)
+bin/
+dist/

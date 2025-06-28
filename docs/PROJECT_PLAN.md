@@ -13,10 +13,10 @@
 - [x] Add proper error handling and HTTP status codes
 - [x] Add basic logging
 - [x] Write unit tests for QR generation
-- [x] Test API manually with curl/Postman
+- [x] Test API manually with curl
 
 ### Phase 2: Containerization & Deployment
-- [ ] Create Dockerfile with multi-stage build
+- [x] Create Dockerfile with multi-stage build
 - [ ] Build and test Docker image locally
 - [ ] Create Kubernetes deployment manifest
 - [ ] Create Kubernetes service manifest
