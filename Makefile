@@ -1,4 +1,4 @@
-.PHONY: help fmt vet lt install-test-tools test run docker-build docker-run docker-stop docker-clean docker-dev k8s-setup k8s-status k8s-logs k8s-clean e2e-test
+.PHONY: help fmt vet lt install-test-tools test run docker-build docker-run docker-stop docker-clean docker-dev k8s-setup k8s-status k8s-logs k8s-clean e2e-test eks-setup eks-deploy
 
 # Show available commands
 help:
@@ -15,11 +15,14 @@ help:
 	@echo "    docker-stop   - Stop and remove container"
 	@echo "    docker-clean  - Clean up images and containers"
 	@echo "    docker-dev    - Build and run container (dev workflow)"
-	@echo "  Kubernetes:"
+	@echo "  Kubernetes (Local):"
 	@echo "    k8s-setup     - Complete local Kubernetes setup with kind cluster"
 	@echo "    k8s-status    - Show deployment status"
 	@echo "    k8s-logs      - Show application logs"
 	@echo "    k8s-clean     - Remove kind cluster completely"
+	@echo "  EKS (Production):"
+	@echo "    eks-setup     - Set up EKS cluster, ECR, and AWS Load Balancer Controller"
+	@echo "    eks-deploy    - Build, push to ECR, and deploy application to EKS"
 	@echo "  Testing:"
 	@echo "    e2e-test      - Run end-to-end tests (requires service running with port forwarding)"
 
@@ -98,3 +101,12 @@ e2e-test:
 	@echo "⚠️  Make sure the service is running with port forwarding active:"
 	@echo "   kubectl port-forward service/qr-generator-service 8080:80"
 	gotestsum --format testname -- -tags="e2e" ./...
+
+# EKS commands
+eks-setup:
+	# Set up complete EKS environment with cluster, ECR, and Load Balancer Controller
+	./scripts/setup-eks.sh
+
+eks-deploy:
+	# Build, push to ECR, and deploy application to EKS cluster
+	./scripts/deploy-app.sh
