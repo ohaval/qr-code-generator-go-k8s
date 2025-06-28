@@ -27,8 +27,6 @@ func (qr *QRCodeGenerator) GenerateQRCodeBytes(text string) ([]byte, error) {
 	return pngBytes, nil
 }
 
-
-
 func main() {
 	fmt.Println("QR Code Generator starting...")
 
@@ -66,27 +64,6 @@ func main() {
 		http.ServeContent(w, r, "qrcode.png", time.Time{}, reader)
 	})
 
-	// Keep the test endpoint
-	http.HandleFunc("/test-qr", func(w http.ResponseWriter, r *http.Request) {
-		text := r.URL.Query().Get("text")
-		if text == "" {
-			http.Error(w, "Missing required parameter 'text'. Usage: /test-qr?text=your-text-here", http.StatusBadRequest)
-			return
-		}
-
-		pngBytes, err := qrGen.GenerateQRCodeBytes(text)
-		if err != nil {
-			http.Error(w, fmt.Sprintf("Error generating QR code: %v", err), http.StatusInternalServerError)
-			return
-		}
-
-		w.Header().Set("Content-Type", "image/png")
-		w.Header().Set("Content-Length", fmt.Sprintf("%d", len(pngBytes)))
-
-		reader := bytes.NewReader(pngBytes)
-		http.ServeContent(w, r, "qrcode.png", time.Time{}, reader)
-	})
-
 	// Root endpoint
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		if r.URL.Path != "/" {
@@ -98,6 +75,5 @@ func main() {
 
 	fmt.Println("Server starting on :8080")
 	fmt.Println("QR generation: POST http://localhost:8080/api/v1/qr/generate?text=your-text-here")
-	fmt.Println("Test QR endpoint: http://localhost:8080/test-qr?text=your-text-here")
 	log.Fatal(http.ListenAndServe(":8080", nil))
 }

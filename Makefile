@@ -1,4 +1,4 @@
-.PHONY: fmt vet lint lt install-tools test
+.PHONY: fmt vet lint lt install-tools test run
 
 # Format code
 fmt:
@@ -24,3 +24,7 @@ install-tools:
 # Run tests with colorful output (default)
 test:
 	gotestsum --format testname ./...
+
+# Run the application
+run:
+	go run main.go
