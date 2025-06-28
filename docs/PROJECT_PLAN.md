@@ -18,10 +18,10 @@
 ### Phase 2: Containerization & Deployment
 - [x] Create Dockerfile with multi-stage build
 - [x] Build and test Docker image locally
-- [ ] Create Kubernetes deployment manifest
-- [ ] Create Kubernetes service manifest
-- [ ] Set up kind cluster locally
-- [ ] Deploy and test in kind cluster
+- [x] Create Kubernetes deployment manifest
+- [x] Create Kubernetes service manifest
+- [x] Set up kind cluster locally
+- [x] Deploy and test in kind cluster
 - [ ] Add proper configuration management (environment variables)
 - [ ] Add resource limits and health checks to K8s manifests
 - [ ] Test complete deployment flow
@@ -30,7 +30,7 @@
 - [x] Basic text/URL QR code generation
 - [x] REST API with core endpoints
 - [x] Docker containerization
-- [ ] Kubernetes deployment manifests
+- [x] Kubernetes deployment manifests
 - [x] Basic error handling and validation
 
 ## Tech Stack
