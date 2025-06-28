@@ -1,4 +1,4 @@
-.PHONY: help fmt vet lt install-test-tools test run docker-build docker-run docker-stop docker-clean docker-dev
+.PHONY: help fmt vet lt install-test-tools test run docker-build docker-run docker-stop docker-clean docker-dev k8s-deploy k8s-delete k8s-status k8s-logs
 
 # Show available commands
 help:
@@ -15,6 +15,11 @@ help:
 	@echo "    docker-stop   - Stop and remove container"
 	@echo "    docker-clean  - Clean up images and containers"
 	@echo "    docker-dev    - Build and run container (dev workflow)"
+	@echo "  Kubernetes:"
+	@echo "    k8s-deploy    - Deploy to Kubernetes cluster"
+	@echo "    k8s-delete    - Delete from Kubernetes cluster"
+	@echo "    k8s-status    - Show deployment status"
+	@echo "    k8s-logs      - Show application logs"
 
 # Format Go source code according to Go's standard formatting rules
 fmt:
@@ -67,3 +72,16 @@ docker-clean: docker-stop
 
 # Build and run (for development)
 docker-dev: docker-stop docker-build docker-run
+
+# Kubernetes commands
+k8s-deploy:
+	kubectl apply -f k8s/
+
+k8s-delete:
+	kubectl delete -f k8s/
+
+k8s-status:
+	kubectl get pods,services,deployments -l app=qr-generator
+
+k8s-logs:
+	kubectl logs -l app=qr-generator --tail=50 -f
