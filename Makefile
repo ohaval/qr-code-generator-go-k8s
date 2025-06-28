@@ -1,4 +1,4 @@
-.PHONY: help fmt vet lt install-test-tools test run docker-build docker-run docker-stop docker-clean docker-dev k8s-setup k8s-status k8s-logs k8s-clean
+.PHONY: help fmt vet lt install-test-tools test run docker-build docker-run docker-stop docker-clean docker-dev k8s-setup k8s-status k8s-logs k8s-clean e2e-test
 
 # Show available commands
 help:
@@ -20,6 +20,8 @@ help:
 	@echo "    k8s-status    - Show deployment status"
 	@echo "    k8s-logs      - Show application logs"
 	@echo "    k8s-clean     - Remove kind cluster completely"
+	@echo "  Testing:"
+	@echo "    e2e-test      - Run end-to-end tests (requires service running with port forwarding)"
 
 # Format Go source code according to Go's standard formatting rules
 fmt:
@@ -87,3 +89,11 @@ k8s-logs:
 k8s-clean:
 	# Remove kind cluster completely
 	kind delete cluster --name qr-generator
+
+# E2E testing
+e2e-test:
+	# Run end-to-end tests (requires service to be running with port forwarding)
+	@echo "🧪 Running E2E tests against http://localhost:8080..."
+	@echo "⚠️  Make sure the service is running with port forwarding active:"
+	@echo "   kubectl port-forward service/qr-generator-service 8080:80"
+	go test -v -run TestE2E
