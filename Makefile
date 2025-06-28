@@ -1,4 +1,4 @@
-.PHONY: help fmt vet lint lt install-tools test run docker-build docker-run docker-stop docker-clean docker-dev
+.PHONY: help fmt vet lt install-test-tools test run docker-build docker-run docker-stop docker-clean docker-dev
 
 # Show available commands
 help:
@@ -8,8 +8,7 @@ help:
 	@echo "    test          - Run tests"
 	@echo "    fmt           - Format Go code"
 	@echo "    vet           - Run go vet"
-	@echo "    lint          - Run golangci-lint"
-	@echo "    lt            - Run fmt, vet, and lint"
+	@echo "    lt            - Run fmt and vet"
 	@echo "  Docker:"
 	@echo "    docker-build  - Build Docker image"
 	@echo "    docker-run    - Run Docker container"
@@ -17,25 +16,19 @@ help:
 	@echo "    docker-clean  - Clean up images and containers"
 	@echo "    docker-dev    - Build and run container (dev workflow)"
 
-# Format code
+# Format Go source code according to Go's standard formatting rules
 fmt:
 	go fmt ./...
 
-# Run go vet
+# Analyze Go code for suspicious constructs and potential bugs
 vet:
 	go vet ./...
 
-# Run golangci-lint
-lint:
-	golangci-lint run
-
 # Combined linting target
-lt: fmt vet lint
+lt: fmt vet
 
 # Install linting tools
-install-tools:
-	go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
-	go install honnef.co/go/tools/cmd/staticcheck@latest
+install-test-tools:
 	go install gotest.tools/gotestsum@latest
 
 # Run tests with colorful output (default)
