@@ -8,7 +8,12 @@ qr-code-generator-go-k8s/
 ├── main.go                      # Main application with QR code generation functionality
 ├── main_test.go                 # Unit tests for QR code generation
 ├── Dockerfile                   # Multi-stage Docker build configuration
-├── Makefile                     # Build, format, lint, test, and Docker targets
+├── Makefile                     # Build, format, lint, test, Docker, and Kubernetes targets
+├── k8s/                         # Kubernetes manifests
+│   ├── deployment.yaml          # Application deployment with 3 replicas and health checks
+│   └── service.yaml             # ClusterIP and LoadBalancer services
+├── scripts/                     # Automation scripts
+│   └── setup-k8s-local.sh      # Complete local Kubernetes environment setup
 └── docs/                        # Project documentation
     ├── PROJECT_PLAN.md          # Combined project plan, architecture, and development phases
     └── STRUCTURE.md             # Current project structure (this file)
