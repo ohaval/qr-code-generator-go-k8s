@@ -9,17 +9,29 @@ import (
 	"io"
 	"net/http"
 	"net/url"
+	"os"
 	"strings"
 	"testing"
 	"time"
 )
 
-const (
-	// Base URL for the service (assumes port forwarding to localhost:8080)
-	baseURL = "http://localhost:8080"
+var (
+	// Base URL for the service - configurable via E2E_BASE_URL environment variable
+	// Defaults to localhost for backwards compatibility
+	baseURL = getBaseURL()
 	// Timeout for HTTP requests
 	requestTimeout = 10 * time.Second
 )
+
+// getBaseURL returns the base URL for testing, checking environment variable first
+func getBaseURL() string {
+	if envURL := os.Getenv("E2E_BASE_URL"); envURL != "" {
+		// Remove trailing slash for consistency
+		envURL = strings.TrimSuffix(envURL, "/")
+		return envURL
+	}
+	return "http://localhost:8080"
+}
 
 // Test client with timeout
 var client = &http.Client{
@@ -28,9 +40,10 @@ var client = &http.Client{
 
 // TestE2EServiceReachable - run this first to verify setup
 func TestE2EServiceReachable(t *testing.T) {
+	t.Logf("🎯 Testing service at: %s", baseURL)
 	resp, err := client.Get(baseURL + "/health")
 	if err != nil {
-		t.Fatalf("❌ Service not reachable at %s. Make sure the service is running and port forwarding is active: %v", baseURL, err)
+		t.Fatalf("❌ Service not reachable at %s. Error: %v", baseURL, err)
 	}
 	resp.Body.Close()
 
@@ -38,7 +51,7 @@ func TestE2EServiceReachable(t *testing.T) {
 		t.Fatalf("❌ Service not healthy. Status: %d", resp.StatusCode)
 	}
 
-	t.Logf("✅ Service is reachable at %s", baseURL)
+	t.Logf("✅ Service is reachable and healthy at %s", baseURL)
 }
 
 // TestE2EHealthEndpoint tests the health check endpoint

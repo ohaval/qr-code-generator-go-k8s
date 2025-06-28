@@ -35,10 +35,10 @@
 - [x] Configure AWS Load Balancer Controller
 - [x] Create EKS-specific Kubernetes manifests with Ingress
 - [x] Create automated deployment script
-- [ ] Deploy application to EKS cluster
-- [ ] Inspect deployment status and health
-- [ ] Run end-to-end tests against EKS deployment
-- [ ] Validate production readiness
+- [x] Deploy application to EKS cluster
+- [x] Inspect deployment status and health
+- [x] Run end-to-end tests against EKS deployment
+- [x] Validate production readiness
 
 ## MVP Goals
 - [x] Basic text/URL QR code generation
@@ -48,6 +48,7 @@
 - [x] Basic error handling and validation
 - [x] Automated CI/CD pipeline
 - [x] Production-ready EKS deployment automation
+- [x] Comprehensive e2e testing (local and production)
 
 ## Tech Stack
 - **Backend**: Go (Golang) with standard net/http package

@@ -1,4 +1,4 @@
-.PHONY: help fmt vet lt install-test-tools test run docker-build docker-run docker-stop docker-clean docker-dev k8s-setup k8s-status k8s-logs k8s-clean e2e-test eks-setup eks-deploy
+.PHONY: help fmt vet lt install-test-tools test run docker-build docker-run docker-stop docker-clean docker-dev k8s-setup k8s-status k8s-logs k8s-clean e2e-test eks-setup eks-deploy e2e-test-eks
 
 # Show available commands
 help:
@@ -25,6 +25,7 @@ help:
 	@echo "    eks-deploy    - Build, push to ECR, and deploy application to EKS"
 	@echo "  Testing:"
 	@echo "    e2e-test      - Run end-to-end tests (requires service running with port forwarding)"
+	@echo "    e2e-test-eks  - Run end-to-end tests against EKS (auto-detects ALB URL, requires auth)"
 
 # Format Go source code according to Go's standard formatting rules
 fmt:
@@ -96,11 +97,35 @@ k8s-clean:
 
 # E2E testing
 e2e-test:
-	# Run end-to-end tests (requires service to be running with port forwarding)
-	@echo "🧪 Running E2E tests against http://localhost:8080..."
-	@echo "⚠️  Make sure the service is running with port forwarding active:"
-	@echo "   kubectl port-forward service/qr-generator-service 8080:80"
+	# Run end-to-end tests against specified target
+	# Usage: make e2e-test (uses localhost:8080)
+	# Usage: E2E_BASE_URL=http://your-service.com make e2e-test
+	@echo "🧪 Running E2E tests..."
+	@if [ -n "$(E2E_BASE_URL)" ]; then \
+		echo "🎯 Target: $(E2E_BASE_URL)"; \
+	else \
+		echo "🎯 Target: http://localhost:8080 (default)"; \
+		echo "⚠️  For localhost testing, make sure service is running with port forwarding:"; \
+		echo "   kubectl port-forward service/qr-generator-service 8080:80"; \
+	fi
 	gotestsum --format testname -- -tags="e2e" ./...
+
+# EKS E2E testing
+e2e-test-eks:
+	# Run end-to-end tests against EKS deployment
+	# Dynamically fetches the ALB endpoint from the ingress resource
+	@echo "🧪 Running E2E tests against EKS deployment..."
+	@echo "🔍 Fetching ALB endpoint from ingress..."
+	@INGRESS_HOST=$$(kubectl get ingress qr-generator-ingress -n qr-generator -o jsonpath='{.status.loadBalancer.ingress[0].hostname}' 2>/dev/null); \
+	if [ -z "$$INGRESS_HOST" ]; then \
+		echo "❌ Could not fetch ingress hostname. Make sure:"; \
+		echo "   1. You're authenticated"; \
+		echo "   2. The EKS cluster is accessible"; \
+		echo "   3. The ingress resource exists: kubectl get ingress -n qr-generator"; \
+		exit 1; \
+	fi; \
+	echo "🎯 Target: http://$$INGRESS_HOST"; \
+	E2E_BASE_URL="http://$$INGRESS_HOST" gotestsum --format testname -- -tags="e2e" ./...
 
 # EKS commands
 eks-setup:
