@@ -7,8 +7,13 @@ qr-code-generator-go-k8s/
 ├── go.sum                       # Dependency lock file
 ├── main.go                      # Main application with QR code generation functionality
 ├── main_test.go                 # Unit tests for QR code generation
+├── e2e_test.go                  # End-to-end integration tests
 ├── Dockerfile                   # Multi-stage Docker build configuration
+├── .dockerignore                # Docker build exclusions
 ├── Makefile                     # Build, format, lint, test, Docker, and Kubernetes targets
+├── .github/workflows/           # CI/CD workflows
+│   ├── linting.yaml             # Go linting workflow
+│   └── tests.yaml               # Unit and integration test workflow
 ├── k8s/                         # Kubernetes manifests
 │   ├── deployment.yaml          # Application deployment with 3 replicas and health checks
 │   └── service.yaml             # ClusterIP and LoadBalancer services

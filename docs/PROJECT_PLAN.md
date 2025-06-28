@@ -22,9 +22,13 @@
 - [x] Create Kubernetes service manifest
 - [x] Set up kind cluster locally
 - [x] Deploy and test in kind cluster
-- [ ] Add proper configuration management (environment variables)
-- [ ] Add resource limits and health checks to K8s manifests
-- [ ] Test complete deployment flow
+
+### Phase 3: CI/CD & Quality Assurance
+- [x] Set up GitHub Actions workflows
+- [x] Implement automated linting workflow
+- [x] Implement automated testing workflow (unit + integration)
+- [x] Add end-to-end integration tests
+
 
 ## MVP Goals
 - [x] Basic text/URL QR code generation
@@ -32,6 +36,7 @@
 - [x] Docker containerization
 - [x] Kubernetes deployment manifests
 - [x] Basic error handling and validation
+- [x] Automated CI/CD pipeline
 
 ## Tech Stack
 - **Backend**: Go (Golang) with standard net/http package
@@ -39,7 +44,7 @@
 - **Cloud Provider**: AWS (EKS, ECR, ALB)
 - **API**: RESTful API with JSON responses (stateless)
 - **Testing**: Go testing package + testify, integration tests
-- **CI/CD**: GitHub Actions with AWS deployment
+- **CI/CD**: GitHub Actions with automated linting and testing
 
 ## API Endpoints
 - `POST /api/v1/qr/generate` - Generate single QR code
@@ -66,5 +71,7 @@
 - Application Load Balancer for ingress
 
 ## Testing Strategy
-- Integration tests for API endpoints
+- Unit tests for QR code generation functionality
+- End-to-end integration tests for API endpoints
 - Kubernetes deployment tests in kind cluster
+- Automated CI/CD pipeline with GitHub Actions
