@@ -29,6 +29,12 @@
 - [x] Implement automated testing workflow (unit + integration)
 - [x] Add end-to-end integration tests
 
+### Phase 4: EKS Production Deployment
+- [ ] Create EKS automation setup script
+- [ ] Deploy application to EKS cluster
+- [ ] Inspect deployment status and health
+- [ ] Run end-to-end tests against EKS deployment
+- [ ] Validate production readiness
 
 ## MVP Goals
 - [x] Basic text/URL QR code generation
