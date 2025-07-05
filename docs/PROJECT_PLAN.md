@@ -41,9 +41,8 @@
 - [x] Validate production readiness
 
 ### Phase 5: Performance Testing & Monitoring
-- [ ] Install and configure k6 load testing tool
-- [ ] Create comprehensive load test scripts (health & QR generation endpoints)
-- [ ] Set up basic load testing with Apache Bench (ab) for quick validation
+- [x] Install and configure k6 load testing tool
+- [x] Create comprehensive load test scripts (health & QR generation endpoints)
 - [ ] Configure Horizontal Pod Autoscaler (HPA) for automatic scaling
 - [ ] Implement pod resource monitoring during load tests
 - [ ] Run baseline performance tests to establish current capacity
