@@ -1,12 +1,12 @@
-.PHONY: help fmt vet lt install-test-tools test run docker-build docker-run docker-stop docker-clean docker-dev k8s-setup k8s-status k8s-logs k8s-clean e2e-test eks-setup eks-deploy eks-destroy e2e-test-eks
+.PHONY: help lint install-test-tools test lt run docker-build docker-run docker-stop docker-clean docker-dev k8s-setup k8s-status k8s-logs k8s-clean e2e-test eks-setup eks-deploy eks-destroy e2e-test-eks
 
 # Show available commands
 help:
 	@echo "Available commands:"
 	@echo "  Development:"
-	@echo "    run           - Run the application locally"
-	@echo "    test          - Run tests"
-	@echo "    lt            - Run go fmt and go vet"
+	@echo "    run             - Run the application locally"
+	@echo "    test (or lt)    - Run tests"
+	@echo "    lint            - Run go fmt and go vet"
 	@echo "  Docker:"
 	@echo "    docker-build  - Build Docker image"
 	@echo "    docker-run    - Run Docker container"
@@ -27,7 +27,7 @@ help:
 	@echo "    e2e-test-eks  - Run end-to-end tests against EKS (auto-detects ALB URL, requires auth)"
 
 # Combined linting target
-lt:
+lint:
 	go fmt ./...
 	go vet ./...
 
@@ -36,7 +36,7 @@ install-test-tools:
 	go install gotest.tools/gotestsum@latest
 
 # Run tests with colorful output (default)
-test:
+test lt:
 	@echo "🧪 Running unit tests..."
 	gotestsum --format testname -- -tags="!e2e" ./...
 
