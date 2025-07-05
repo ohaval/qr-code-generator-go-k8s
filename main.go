@@ -51,6 +51,8 @@ func main() {
 			return
 		}
 
+		log.Printf("Processing QR code generation request for content: %q", text)
+
 		pngBytes, err := qrGen.GenerateQRCodeBytes(text)
 		if err != nil {
 			http.Error(w, "Failed to generate QR code", http.StatusInternalServerError)
