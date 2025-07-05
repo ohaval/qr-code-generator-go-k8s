@@ -40,6 +40,20 @@
 - [x] Run end-to-end tests against EKS deployment
 - [x] Validate production readiness
 
+### Phase 5: Performance Testing & Monitoring
+- [ ] Install and configure k6 load testing tool
+- [ ] Create comprehensive load test scripts (health & QR generation endpoints)
+- [ ] Set up basic load testing with Apache Bench (ab) for quick validation
+- [ ] Configure Horizontal Pod Autoscaler (HPA) for automatic scaling
+- [ ] Implement pod resource monitoring during load tests
+- [ ] Run baseline performance tests to establish current capacity
+- [ ] Analyze response time percentiles (p50, p95, p99) and error rates
+- [ ] Set up CloudWatch monitoring for ALB and EKS metrics
+- [ ] Create performance test automation scripts
+- [ ] Document performance characteristics and scaling behavior
+- [ ] Establish performance benchmarks and SLA targets
+- [ ] Test HPA scaling behavior under different load patterns
+
 ## MVP Goals
 - [x] Basic text/URL QR code generation
 - [x] REST API with core endpoints
