@@ -1,4 +1,4 @@
-.PHONY: help lint install-test-tools test lt run docker-build docker-run docker-stop docker-clean docker-dev k8s-setup k8s-status k8s-logs k8s-clean e2e-test eks-setup eks-deploy eks-destroy e2e-test-eks
+.PHONY: help lint install-test-tools test lt run docker-build docker-run docker-stop docker-clean docker-dev k8s-setup k8s-status k8s-logs k8s-clean e2e-test eks-setup eks-deploy eks-destroy e2e-test-eks load-test
 
 # Show available commands
 help:
@@ -25,6 +25,7 @@ help:
 	@echo "  Testing:"
 	@echo "    e2e-test      - Run end-to-end tests (requires service running with port forwarding)"
 	@echo "    e2e-test-eks  - Run end-to-end tests against EKS (auto-detects ALB URL, requires auth)"
+	@echo "    load-test     - Run load tests against EKS deployment (auto-detects ALB URL)"
 
 # Combined linting target
 lint:
@@ -132,3 +133,9 @@ eks-deploy:
 eks-destroy:
 	# Completely destroy EKS cluster and all related resources
 	./scripts/teardown-eks.sh
+
+# Load testing
+load-test:
+	# Run load tests against EKS deployment
+	# Automatically fetches the ALB endpoint from the ingress resource
+	./load-tests/run-load-test.sh
