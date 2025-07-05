@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 	"time"
 
 	"github.com/skip2/go-qrcode"
@@ -32,6 +33,13 @@ func main() {
 
 	qrGen := &QRCodeGenerator{}
 
+	// Cache hostname at startup
+	hostname, err := os.Hostname()
+	if err != nil {
+		hostname = "unknown"
+	}
+	log.Printf("Hostname: %s", hostname)
+
 	// Health check endpoint
 	http.HandleFunc("/health", func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json")
@@ -51,7 +59,7 @@ func main() {
 			return
 		}
 
-		log.Printf("Processing QR code generation request for content: %q", text)
+		log.Printf("[%s] Processing QR code generation request for content: %q", hostname, text)
 
 		pngBytes, err := qrGen.GenerateQRCodeBytes(text)
 		if err != nil {
