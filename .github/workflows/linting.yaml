@@ -16,4 +16,4 @@ jobs:
         go-version: '1.23.5'
 
     - name: Run linting
-      run: make lt
+      run: make lint
