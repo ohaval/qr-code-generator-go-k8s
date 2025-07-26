@@ -43,15 +43,11 @@
 ### Phase 5: Performance Testing & Monitoring
 - [x] Install and configure k6 load testing tool
 - [x] Create comprehensive load test scripts (health & QR generation endpoints)
-- [ ] Configure Horizontal Pod Autoscaler (HPA) for automatic scaling
-- [ ] Implement pod resource monitoring during load tests
-- [ ] Run baseline performance tests to establish current capacity
-- [ ] Analyze response time percentiles (p50, p95, p99) and error rates
-- [ ] Set up CloudWatch monitoring for ALB and EKS metrics
-- [ ] Create performance test automation scripts
-- [ ] Document performance characteristics and scaling behavior
-- [ ] Establish performance benchmarks and SLA targets
-- [ ] Test HPA scaling behavior under different load patterns
+- [x] Configure Horizontal Pod Autoscaler (HPA) for automatic scaling
+- [x] Implement pod resource monitoring during load tests
+- [x] Run baseline performance tests to establish current capacity
+- [x] Analyze response time percentiles (p50, p95, p99) and error rates
+- [x] Test HPA scaling behavior under different load patterns
 
 ## MVP Goals
 - [x] Basic text/URL QR code generation
