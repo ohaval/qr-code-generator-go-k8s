@@ -322,21 +322,8 @@ print_next_steps() {
     print_success "EKS setup completed successfully!"
     echo
     print_status "Next steps:"
-    echo "1. Build and push your Docker image to ECR:"
-    echo "   aws ecr get-login-password --region $REGION | docker login --username AWS --password-stdin $ECR_URI"
-    echo "   docker build -t $ECR_REPO_NAME ."
-    echo "   docker tag $ECR_REPO_NAME:latest $ECR_URI:latest"
-    echo "   docker push $ECR_URI:latest"
-    echo
-    echo "2. Update your Kubernetes manifests to use the ECR image URI:"
-    echo "   Image URI: $ECR_URI:latest"
-    echo
-    echo "3. Deploy your application:"
-    echo "   kubectl apply -f k8s/ -n $NAMESPACE"
-    echo
-    echo "4. Check deployment status:"
-    echo "   kubectl get pods -n $NAMESPACE"
-    echo "   kubectl get services -n $NAMESPACE"
+    echo "Deploy your application to EKS:"
+    echo "   make eks-deploy"
     echo
     print_status "Cluster Name: $CLUSTER_NAME"
     print_status "Region: $REGION"
